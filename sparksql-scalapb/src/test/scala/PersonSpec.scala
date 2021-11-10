@@ -11,7 +11,7 @@ import com.example.protos.demo.{
   SimplePerson
 }
 import com.google.protobuf.ByteString
-import org.apache.spark.sql.{DataFrame, Dataset, SparkSession, functions => F}
+import org.apache.spark.sql.{DataFrame, Dataset, SparkSession, types, functions => F}
 import org.scalatest.events.TestPending
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec

@@ -17,7 +17,7 @@ import scalapb.descriptors.{Descriptor, FieldDescriptor, PValue, ScalaType}
 import scalapb.GeneratedMessageCompanion
 
 trait ToCatalystHelpers {
-  def protoSql: ProtoSQL with WrapperTypes
+  def protoSql: ProtoSQL with WrapperTypes with NullRepeatedSupport
 
   def messageToCatalyst(
       cmp: GeneratedMessageCompanion[_],

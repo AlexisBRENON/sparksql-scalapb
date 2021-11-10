@@ -81,12 +81,16 @@ object JavaHelpers {
 
   def asPValue(h: Object): PValue = h.asInstanceOf[PValue]
 
-  def mkPMessage(cmp: GeneratedMessageCompanion[_], args: ArrayData): PValue = {
+  def mkPMessage(cmp: GeneratedMessageCompanion[_], args: ArrayData, supportNullRepeated: Boolean): PValue = {
     // returning Any to ensure the any-value doesn't get unwrapped in runtime.
     PMessage(
       cmp.scalaDescriptor.fields
         .zip(args.array)
-        .filterNot(_._2 == PEmpty)
+        .filter {
+          case (_, null) if supportNullRepeated => false
+          case (_, PEmpty) => false
+          case _ => true
+        }
         .toMap
         .asInstanceOf[Map[FieldDescriptor, PValue]]
     )
