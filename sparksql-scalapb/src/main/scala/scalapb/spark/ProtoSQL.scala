@@ -53,7 +53,7 @@ import scalapb.descriptors.Descriptor
 import com.google.protobuf.wrappers.Int32Value
 
 trait ProtoSQL {
-  self: WrapperTypes with NullRepeatedSupport =>
+  self: WrapperTypes =>
   import scala.language.existentials
 
   def protoToDataFrame[T <: GeneratedMessage: Encoder](
@@ -177,6 +177,6 @@ trait ProtoSQL {
   }
 }
 
-object ProtoSQL extends ProtoSQL with Udfs with NoWrapperTypes with NoNullRepeatedSupport {
-  val withPrimitiveWrappers = new ProtoSQL with Udfs with AllWrapperTypes with NoNullRepeatedSupport
+object ProtoSQL extends ProtoSQL with Udfs with NoWrapperTypes {
+  val withPrimitiveWrappers = new ProtoSQL with Udfs with AllWrapperTypes
 }

@@ -25,7 +25,7 @@ import scalapb.GeneratedMessageCompanion
 import scalapb.descriptors._
 
 trait FromCatalystHelpers {
-  def protoSql: ProtoSQL with WrapperTypes with NullRepeatedSupport
+  def protoSql: ProtoSQL with WrapperTypes
 
   def pmessageFromCatalyst(
       cmp: GeneratedMessageCompanion[_],
@@ -45,7 +45,7 @@ trait FromCatalystHelpers {
       JavaHelpers.getClass,
       ObjectType(classOf[PValue]),
       "mkPMessage",
-      Literal.fromObject(cmp) :: CreateArray(args) :: Literal.fromObject(protoSql.supportNullRepeated) :: Nil
+      Literal.fromObject(cmp) :: CreateArray(args)  :: Nil
     )
   }
 

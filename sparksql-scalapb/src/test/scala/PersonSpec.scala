@@ -324,4 +324,17 @@ class PersonSpec extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
       .mode("overwrite")
       .save("/tmp/address2")
   }
+
+  "parsing from json" should "work" in {
+    val df = spark.read
+      .schema(ProtoSQL.schemaFor[SimplePerson].asInstanceOf[types.StructType])
+      .json("./sparksql-scalapb/src/test/assets/simple_person_null_repeated.json")
+      .as[SimplePerson]
+    df.collect() must contain theSameElementsAs Seq(
+      SimplePerson().addTags("tag1").addNums(42),
+      SimplePerson(),
+      SimplePerson(),
+      SimplePerson()
+    )
+  }
 }
