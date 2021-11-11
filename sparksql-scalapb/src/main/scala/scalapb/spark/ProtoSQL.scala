@@ -53,7 +53,7 @@ import scalapb.descriptors.Descriptor
 import com.google.protobuf.wrappers.Int32Value
 
 trait ProtoSQL {
-  self: WrapperTypes =>
+  self: WrapperTypes with ColumnNaming =>
   import scala.language.existentials
 
   def protoToDataFrame[T <: GeneratedMessage: Encoder](

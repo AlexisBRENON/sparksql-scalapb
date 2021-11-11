@@ -17,7 +17,7 @@ import scalapb.descriptors.{Descriptor, FieldDescriptor, PValue, ScalaType}
 import scalapb.GeneratedMessageCompanion
 
 trait ToCatalystHelpers {
-  def protoSql: ProtoSQL with WrapperTypes
+  def protoSql: ProtoSQL with WrapperTypes with ColumnNaming
 
   def messageToCatalyst(
       cmp: GeneratedMessageCompanion[_],
@@ -28,7 +28,7 @@ trait ToCatalystHelpers {
       fieldToCatalyst(cmp, fd, input)
     } else {
       val nameExprs = cmp.scalaDescriptor.fields.map { field =>
-        Literal(field.name)
+        Literal(protoSql.fieldName(field))
       }
 
       val valueExprs = cmp.scalaDescriptor.fields.map { field =>
