@@ -32,7 +32,13 @@ lazy val sparkSqlScalaPB = project
     )
   )
 
-publishTo in ThisBuild := sonatypePublishToBundle.value
+ThisBuild / credentials += Credentials(
+  "Sonatype Nexus Repository Manager",
+  "nexus.ayl.io",
+  sys.env.getOrElse("NEXUS_USER", ""),
+  sys.env.getOrElse("NEXUS_PW", "")
+)
+ThisBuild / publishTo := Some("Nexus ayl"  at "https://nexus.ayl.io/repository/maven-data")
 
 releaseCrossBuild := true
 
